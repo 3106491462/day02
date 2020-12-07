@@ -20,4 +20,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # 包含项目子应用下的URL配置文件，包含之后配置才会有效
     path('', include('helloworld.urls')),
+    path('', include('users.urls')),
 ]
