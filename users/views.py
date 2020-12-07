@@ -1,26 +1,19 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-
+from users.models import User
 
 # /register/
 def register(request):
     """注册View视图函数"""
     # 注册页面内容
-    html = """
-        <html>
-            <head>
-                <title>注册页面</title>
-            </head>
-            <body>
-                <form method='post' action='/register/'>
-                    username：<input type='text' name='username' /><br/>
-                    password：<input type='password' name='password' /><br/>
-                    <input type='submit' value='注册' />
-                </form>
-            </body>
-        </html>
-        """
+    if request.method == 'GET':
+        return render(request, 'register.html')
+    else:
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        # print(f'username:{username}password:{password}')
+        user = User.objects.create(username=username, password=password)
 
-    # 返回响应
-    return HttpResponse(html)
+        # 返回响应
+        return HttpResponse('注册成功')
 # Create your views here.
